@@ -10,16 +10,15 @@ app.directive('ellipsisContainer', function (){
 		restrict: 'E',
 		scope: {
 		  message: '=msg',
-		  status:'=status',
+		 // status:'=status',
 		  len:'=requiredLength'
 
 		},
 		link : function(scope){
 			var toggleStatus = scope.status;
-				console.log("Initially    "+toggleStatus);
-
+			//console.log("Initially    "+toggleStatus);
 			var len = scope.len;
-			scope.test = function(){
+			/*scope.test = function(){
 				if(toggleStatus){
 					scope.ellipsisMsg = scope.message  + '...Show Less';
 					//console.log("first if     "+toggleStatus);
@@ -34,32 +33,36 @@ app.directive('ellipsisContainer', function (){
 
 			}
 			
-			if(toggleStatus){
+			/*if(toggleStatus){
 				scope.ellipsisMsg = scope.message;
 				//console.log("second if     "+toggleStatus);
 			}
 			else{
 				scope.ellipsisMsg = scope.message.substring(0, len) + '...Show More';
-				//console.log("second else     "+toggleStatus);
 			}
 			toggleStatus = !toggleStatus;
-			//console.log("out of link function    "+toggleStatus);
+			//console.log("out of link function    "+toggleStatus);*/
 
-			
+			//------------- Another Solution -------------
+
+			scope.message = scope.message.substring(0,len);
+			scope.test = function(){
+				var char_len = scope.message.length;
+				//alert(len);
+				if(len <= char_len)
+				{
+					scope.message = scope.message.substring(0,len);
+					console.log("length    "+len);
+				}
+				else
+				{
+					scope.message = scope.message.substring(0,len) + '...Show More';
+				}
+			}
+	
 		},
-		template: '<p ng-click="test()">{{ellipsisMsg}}</p>'
+		template: '<p ng-click="test()">{{message}}</p>'
 
 	};
 });
 
-// .controller("newCtrl",function($scope,element,attrs){
-// 		$scope.showAllConent = function(){
-// 			alert("gjgdjk");
-// 		}
-// });
-
-
-
-/*Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis nihil hic 
-consequuntur cumque quidem nam beatae magnam, laudantium architecto, at aliquid! 
-Sequi laudantium ex asperiores qui doloremque voluptates reiciendis id!*/
